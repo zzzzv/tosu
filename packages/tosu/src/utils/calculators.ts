@@ -63,19 +63,19 @@ export const calculateAccuracy = (params: {
                 hits.meh +
                 hits.miss;
             if (totalHits === 0) break;
-
-            const perfectWeight = params.mods.find(
-                (mod) => mod.acronym === 'CL'
+            // Currently only used by stable
+            const perfectWeight = params.mods.some(
+                (mod) => mod.acronym === 'SV2'
             )
-                ? 60
-                : 61;
+                ? 61
+                : 60;
             numerator =
                 perfectWeight * hits.perfect +
                 60 * hits.great +
                 40 * hits.good +
                 20 * hits.ok +
                 10 * hits.meh;
-            denominator = totalHits;
+            denominator = totalHits * perfectWeight;
             break;
         }
     }
